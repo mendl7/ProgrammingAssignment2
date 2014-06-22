@@ -9,14 +9,16 @@ makeCacheMatrix <- function(x = matrix()) {
   # the variable (x). 
   set <- function(y) {
     x <<- y
+    # Setting the inverse matrix value (m) to NULL when new matrix
+    # data is set means this will need to be recalculated later.
     m <<- NULL
   }
 
   # Function 2: Get the current cached matrix data (x) for the object.
   get <- function() x
 
-  # Function 3: Caches the inverse matrix value (inv) for this 
-  # object in the variable (m).
+  # Function 3: Caches the inverse matrix value (inv), calculated by
+  # cacheSolve(), in the variable (m).
   setinverse <- function(inv) m <<- inv
 
   # Function 4: Gets the current cached inverse matrix value (m) stored
@@ -27,10 +29,10 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 ## This function either calculates the inverse of the 
-## "matrix" object created by makeCacheMatrix() or,
-## if this has been previously calculated and the 
-## matrix hasn't been altered, retrieves the inverse
-## of the matrix object from the cache.
+## "matrix" object created by makeCacheMatrix() by
+## using the solve() function or, if this has been 
+## previously calculated for the input matrix, retrieves 
+## the inverse of the matrix object from the cache.
 cacheSolve <- function(x, ...) {
   # Gets the current value of the inverted matrix data.
   m <- x$getinverse()
