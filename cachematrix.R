@@ -5,21 +5,21 @@
 makeCacheMatrix <- function(x = matrix()) {
   m <- NULL
 
-  # Function 1: Stores the matrix data for this object in 
+  # Function 1: Caches the matrix data for this object in 
   # the variable (x). 
   set <- function(y) {
     x <<- y
     m <<- NULL
   }
 
-  # Function 2: Get the current matrix data (x) for the object.
+  # Function 2: Get the current cached matrix data (x) for the object.
   get <- function() x
 
-  # Function 3: Stores inverse matrix value (inv) for this 
-  # object in the cache (m).
+  # Function 3: Caches the inverse matrix value (inv) for this 
+  # object in the variable (m).
   setinverse <- function(inv) m <<- inv
 
-  # Function 4: Gets the cached inverse matrix value (m) stored
+  # Function 4: Gets the current cached inverse matrix value (m) stored
   # by setinverse()
   getinverse <- function() m
   list(set = set, get = get, setinverse=setinverse, getinverse=getinverse)
@@ -32,7 +32,7 @@ makeCacheMatrix <- function(x = matrix()) {
 ## matrix hasn't been altered, retrieves the inverse
 ## of the matrix object from the cache.
 cacheSolve <- function(x, ...) {
-  # Get the inverse of the current matrix data.
+  # Gets the current value of the inverted matrix data.
   m <- x$getinverse()
   # If there is a current inverse value, not NULL,
   # return this value and exit function.
@@ -42,7 +42,7 @@ cacheSolve <- function(x, ...) {
   }
   # Otherwise, get current matrix data.
   data <- x$get()
-  # Use solve to calculate the inverse of the matrix.
+  # Use solve() to calculate the inverse of the matrix.
   ## The inverse of matrix 
   ## [a, b]
   ## [c, d]
@@ -51,7 +51,7 @@ cacheSolve <- function(x, ...) {
   ## [d, -b]
   ## [-c, a]
   m <- solve(data, ...)
-  # Set the inverse value for the next call to 
+  # Cache the inverse value for the next call to 
   # getinverse
   x$setinverse(m)
   # Return inverse value and exit function.
